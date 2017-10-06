@@ -20,37 +20,53 @@ public class FMMediatorAction {
         self.mediatorType = mediatorType
     }
     
-    public func mediator<T: UIViewController>(from: UIViewController?, to: T) {
+    public func mediator(from: UIViewController?, to: UIViewController) {
         mediatorType.mediator(from: from, to: to)
     }
 }
 
 fileprivate extension FMMediatorAction.FMMediatorType {
-    func mediator<T: UIViewController>(from: UIViewController?, to: T) {
+    func mediator(from: UIViewController?, to: UIViewController) {
         switch self {
         case .push:
-            pushController(from: from ?? defaultController(isPush: true), to: to)
+            pushController(from: from ?? top(), to: to)
         case .present:
-            presentController(from: from ?? defaultController(isPush: false), to: to)
+            presentController(from: from ?? top(), to: to)
         }
     }
     
-    func pushController<T: UIViewController>(from: UIViewController, to: T) {
+    func pushController(from: UIViewController?, to: UIViewController) {
         //FIXME: 更多的动画或者相关操作属性可以基于MediatorAction来实现
-        from.navigationController?.pushViewController(to,
+        assert(from != nil, "from is NULL")
+        assert(from!.navigationController != nil, "from's navigationController is NULL")
+        from!.navigationController?.pushViewController(to,
                                                       animated: true)
     }
     
-    func presentController<T: UIViewController>(from: UIViewController, to: T) {
+    func presentController(from: UIViewController?, to: UIViewController) {
         //FIXME: 更多的动画或者相关操作属性可以基于MediatorAction来实现
-        from.present(to,
+        from?.present(to,
                      animated: true) { 
                         debugPrint("did shown")
         }
     }
     
-    func defaultController(isPush: Bool) -> UIViewController {
-        //        TODO: 需要修改为需要的Controller
-        return UIViewController()
+    func top() -> UIViewController? {
+        var result = top(controller: UIApplication.shared.keyWindow!.rootViewController)
+        while result?.presentedViewController != nil {
+            result = top(controller: result?.presentedViewController)
+        }
+        return result
+    }
+    
+    func top(controller: UIViewController?) -> UIViewController? {
+        assert(controller != nil, "controller is NULL")
+        if controller is UINavigationController {
+            return top(controller:(controller as! UINavigationController).topViewController)
+        } else if controller is UITabBarController {
+            return top(controller:(controller as! UITabBarController).selectedViewController)
+        } else {
+            return controller
+        }
     }
 }

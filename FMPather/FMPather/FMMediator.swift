@@ -27,8 +27,8 @@ public class FMMediator: Hashable {
 }
 
 public extension FMMediator {
-    public func registerRestful<T: NSObject>(restfulPath: String,
-                                builder: @escaping (FMPatherPage)->T)
+    public func registerRestful(restfulPath: String,
+                                builder: @escaping (FMPatherPage)->AnyObject)
         -> FMPatherError
     {
         if restfulPath.scheme != scheme {
@@ -53,11 +53,11 @@ public extension FMMediator {
         }
     }
 
-    public func object<T: NSObject>(for path:String) -> T? {
+    public func object(for path:String) -> AnyObject? {
         return patherPage(for: path)?.matchedObject(path: path)
     }
     
-    public func controller<T: UIViewController>(for path: String) -> T? {
+    public func controller(for path: String) -> AnyObject? {
         return object(for: path)
     }
     

@@ -14,27 +14,3 @@ public protocol FMPatherPathData: class {
     var url: String {set get}
 }
 
-//extension UIViewController: FMPatherPathData {
-//    var querys: [String: String] {
-//        set {
-//        }
-//        get{
-//            return [:]
-//        }
-//    }
-//    var dynamicNode: [String: String] {set {
-//        }
-//        get{
-//            return [:]
-//        }
-//    }
-//    var url: String {
-//        set {
-//        }
-//        
-//        get {
-//            return ""
-//        }
-//    }
-//    
-//}

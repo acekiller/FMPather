@@ -26,11 +26,17 @@ public class FMPatherPage {
                                   dynamic: restfulRegex)
     }
     
-    public func matchedObject<T: NSObject>(path: String) -> T? {
+    public func matchedObject(path: String) -> AnyObject? {
         if !canMatch(for: path) {
             return nil
         }
-        return builder(self) as? T
+        let obj = builder(self)
+        if obj is FMPatherPathData {
+            (obj as! FMPatherPathData).querys = path.querys
+            (obj as! FMPatherPathData).dynamicNode = dynamicPathNode(for: path)
+            (obj as! FMPatherPathData).url = path
+        }
+        return obj
     }
 }
 

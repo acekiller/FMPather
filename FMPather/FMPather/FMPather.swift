@@ -8,12 +8,12 @@
 
 import UIKit
 
-public typealias FMMediatorPrepareBlock<T> = (T) -> Void
+public typealias FMMediatorPrepareBlock = (AnyObject) -> Void
 
 public class FMPather {
     fileprivate var mediators = [FMMediator]()
     
-    public static let pather = FMPather()
+    public static let `default` = FMPather()
     public let defaultMediator = FMMediator(scheme: String.appScheme, host: String.appHost)
     
     init() {
@@ -22,47 +22,66 @@ public class FMPather {
 }
 
 public extension FMPather {
-    
+     /**
+     注册支持的路由、对应主机和动态路由的匹配规则。
+     :param scheme 支持的路由协议，与
+     */
     public func register(scheme: String,
                          host: String,
                          regex: String = ":[a-z,A-Z,0-9,_]+")
         -> FMMediator {
-            if !hasMediator(scheme: scheme, host: host) {
+            if hasMediator(scheme: scheme, host: host) {
                 return mediators.mediator(scheme: scheme, host: host)!
             }
             return addMeditor(scheme: scheme, host: host, regex: regex)
     }
-    
+    /**
+     获取指定协议及主机的路由调节器
+     */
     public func mediator(scheme: String, host: String) -> FMMediator? {
+        if defaultMediator.scheme == scheme && defaultMediator.host == host {
+            return defaultMediator
+        }
         return mediators.mediator(scheme:scheme, host:host)
     }
-    
-    public func registerRestful<T: NSObject>(restfulPath: String,
-                                builder: @escaping (FMPatherPage)->T) -> FMPatherError
+    /**
+     注册需要监听的路由地址,如果监听的路由scheme和host没有注册，将返回 .registerFailed错误
+     */
+    public func registerRestful(restfulPath: String,
+                                builder: @escaping (FMPatherPage)->AnyObject) -> FMPatherError
     {
         return mediator(scheme: restfulPath.scheme, host: restfulPath.host)?.registerRestful(restfulPath: restfulPath, builder: builder) ?? .registerFailed
     }
     
-    public func object<T: NSObject>(for path: String, prepare block: FMMediatorPrepareBlock<T>)-> T? where T: FMPatherPathData {
+    /**
+     获取路由目标对象
+     */
+    public func object(for path: String, prepare block: FMMediatorPrepareBlock)-> AnyObject? {
         let m = mediator(scheme: path.scheme, host: path.host)
-        guard let object = m?.object(for: path) as? T else {
+        guard let object = m?.object(for: path) else {
             return nil
         }
-        object.querys = m!.querys(for: path)
-        object.dynamicNode = m!.dynamicPathComponents(for: path)
-        object.url = path
+//        object.querys = m!.querys(for: path)
+//        object.dynamicNode = m!.dynamicPathComponents(for: path)
+//        object.url = path
         block(object)
         return object
     }
     
-    public func controller<T: UIViewController>(for path: String, prepare block: FMMediatorPrepareBlock<T>) -> T? where T: FMPatherPathData {
-        return object(for: path, prepare: block)
+    /**
+     获取路由目标Controller
+     */
+    public func controller(for path: String, prepare block: FMMediatorPrepareBlock) -> UIViewController? {
+        return object(for: path, prepare: block) as? UIViewController
     }
     
-    public func mediatorPage<T: UIViewController>(for path: String,
+    /**
+     跳转到指定路由对应的Controller
+     */
+    public func mediatorPage(for path: String,
                              fromController: UIViewController? = nil,
                              mediatorAction: FMMediatorAction = FMMediatorAction(mediatorType: .push),
-    prepare block: FMMediatorPrepareBlock<T> = {_ in}) where T: FMPatherPathData {
+    prepare block: FMMediatorPrepareBlock = {_ in}) {
         let destnationController = controller(for: path, prepare: block)
         guard let destnation = destnationController else {
             return

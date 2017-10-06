@@ -44,6 +44,8 @@
 		187A236A1F6BE3EE0091E048 /* FMPather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187A23671F6BE3EE0091E048 /* FMPather.swift */; };
 		187B90241F72680E0005691A /* FMMediator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187B90231F72680E0005691A /* FMMediator.swift */; };
 		187B90281F726B4E0005691A /* FMPatherPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187B90271F726B4E0005691A /* FMPatherPage.swift */; };
+		9A212E951F873760006B1B69 /* FMTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A212E941F873760006B1B69 /* FMTestViewController.swift */; };
+		9A212E971F8741E7006B1B69 /* FMParametersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A212E961F8741E7006B1B69 /* FMParametersController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +91,8 @@
 		187A23671F6BE3EE0091E048 /* FMPather.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FMPather.swift; sourceTree = "<group>"; };
 		187B90231F72680E0005691A /* FMMediator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FMMediator.swift; sourceTree = "<group>"; };
 		187B90271F726B4E0005691A /* FMPatherPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FMPatherPage.swift; sourceTree = "<group>"; };
+		9A212E941F873760006B1B69 /* FMTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FMTestViewController.swift; sourceTree = "<group>"; };
+		9A212E961F8741E7006B1B69 /* FMParametersController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FMParametersController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +150,8 @@
 				187A233A1F6BE1950091E048 /* Assets.xcassets */,
 				187A233C1F6BE1950091E048 /* LaunchScreen.storyboard */,
 				187A233F1F6BE1950091E048 /* Info.plist */,
+				9A212E941F873760006B1B69 /* FMTestViewController.swift */,
+				9A212E961F8741E7006B1B69 /* FMParametersController.swift */,
 			);
 			path = FMPather;
 			sourceTree = "<group>";
@@ -321,9 +327,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A212E971F8741E7006B1B69 /* FMParametersController.swift in Sources */,
 				1876FB9B1F73E82500283D07 /* FMPatherPathData.swift in Sources */,
 				1866309D1F6D032D00D115DB /* FMPatherMatch.swift in Sources */,
 				187B90281F726B4E0005691A /* FMPatherPage.swift in Sources */,
+				9A212E951F873760006B1B69 /* FMTestViewController.swift in Sources */,
 				187A23681F6BE3EE0091E048 /* FMPather.swift in Sources */,
 				187A23641F6BE2CC0091E048 /* FMPatherURL.swift in Sources */,
 				187A23361F6BE1950091E048 /* ViewController.swift in Sources */,

@@ -13,9 +13,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        _ = FMPather.default.register(scheme: "demo", host: "test")
+        let status = FMPather.default.registerRestful(restfulPath: "demo://test/api/hello") {
+            _ in
+            return FMTestViewController()
+        }
+        debugPrint("status : \(status)")
+        _ = FMPather.default.registerRestful(restfulPath: "demo://test/api/aaa/:id") {
+            _ in
+            return FMParametersController()
+        }
         return true
     }
 
