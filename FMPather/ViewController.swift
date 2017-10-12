@@ -31,11 +31,11 @@ class ViewController: UIViewController {
         view.addSubview(button2)
     }
     
-    func testOneAction() {
+    @objc func testOneAction() {
         FMPather.default.mediatorPage(for: "demo://test/api/hello")
     }
     
-    func testTwoAction() {
+    @objc func testTwoAction() {
         FMPather.default.mediatorPage(for: "demo://test/api/aaa/hello?name=feng&address=四川")
     }
     

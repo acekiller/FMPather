@@ -56,6 +56,6 @@ fileprivate extension Sequence where Iterator.Element == String {
         OtherSequence : Sequence,
         OtherSequence.Iterator.Element == Self.Iterator.Element {
         return self.elementsEqual(patternSequence,
-                                  by: { $0.0.isMatchRouterNode(by: $0.1, dynamic: condition) })
+                                  by: { $0.isMatchRouterNode(by: $1, dynamic: condition) })
     }
 }

@@ -16,6 +16,7 @@ class FMParametersController: UIViewController, FMPatherPathData {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Parameters"
+        view.backgroundColor = UIColor.white
         debugPrint("url: \(url)")
         debugPrint("querys: \(querys)")
         debugPrint("dynamicNode: \(dynamicNode)")

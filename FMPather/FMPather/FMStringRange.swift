@@ -10,12 +10,14 @@ import Foundation
 
 extension String {
     func nsRange(range index: Range<String.Index>) -> NSRange {
-        let from = index.lowerBound.samePosition(in: utf16)
-        let to = index.upperBound.samePosition(in: utf16)
-        return NSRange(location: utf16.distance(from: utf16.startIndex,
-                                                to: from),
-                       length: utf16.distance(from: from,
-                                              to: to))
+//        let from = index.lowerBound.samePosition(in: utf16)
+//        let to = index.upperBound.samePosition(in: utf16)
+        
+        return NSMakeRange(utf16.distance(from: self.startIndex, to: index.lowerBound), utf16.distance(from: index.lowerBound, to: index.upperBound))
+//        return NSRange(location: utf16.distance(from: utf16.startIndex,
+//                                                to: from),
+//                       length: utf16.distance(from: from,
+//                                              to: to))
     }
     
     func range(index range: NSRange) -> Range<String.Index>? {
